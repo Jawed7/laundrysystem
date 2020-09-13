@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+@model IEnumerable<laundry.Areas.Identity.Data.laundryUser>
+<br />
+<h3>All Users</h3>
+<br/>
+
+<table class="table table-sm table-bordered">
+    <tr><th>ID</th><th>Name</th><th>Email</th><th>Update</th></tr>
+    @foreach (laundry.Areas.Identity.Data.laundryUser user in Model)
+    {
+<tr>
+    <td>@user.FirstName</td>
+    <td>@user.LastName</td>
+    <td>@user.Email</td>
+    <td>
+        <a class="btn btn-sm btn-primary" asp-controller="ManageUsers" asp-action="Update" asp-route-id="@user.Id">
+            Update
+        </a>
+    </td>
+</tr>
+}
+</table>

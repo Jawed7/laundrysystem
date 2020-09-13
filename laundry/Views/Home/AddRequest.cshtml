@@ -1,0 +1,198 @@
+﻿
+@{
+    ViewData["Title"] = "AddRequest";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<link href="~/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+<link href="~/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+<link rel="styleshee" type="text/css" href="~/jquery.timepicker.css" />
+<link rel="stylesheet" type="text/css" href="~/bootstrap-datepicker.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://jonthornton.github.io/jquery-timepicker/jquery.timepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="https://jonthornton.github.io/jquery-timepicker/jquery.timepicker.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.standalone.css" />
+<script src="~/Datepicker/jquery.timepicker.js"></script>
+<script src="~/Datepicker/datepair.js"></script>
+<!-- Font special for pages-->
+<link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+
+<!-- Vendor CSS-->
+<link href="~/vendor/select2/select2.min.css" rel="stylesheet" media="all">
+<link href="~/vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
+<link href="~/css/main.css" rel="stylesheet" media="all">
+
+<!-- Main CSS-->
+<style>
+    .rs-select2 .select2-container .select2-selection--single {
+        outline: none;
+        border: none;
+        height: 36px;
+    }
+
+        .rs-select2 .select2-container .select2-selection--single .select2-selection__rendered {
+            color: #0098d6;
+        }
+
+    .login {
+        width: 40%;
+        padding: 12px 20px;
+        margin: 8px 26px;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        font-size: 16px;
+    }
+
+    input {
+        outline: none;
+        margin: 0;
+        border: none;
+        /* -webkit-box-shadow: none; */
+        -moz-box-shadow: none;
+        box-shadow: none;
+        width: 100%;
+        font-size: 14px;
+        font-family: inherit;
+    }
+
+    .row {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    }
+
+    .row-space {
+        -webkit-box-pack: justify;
+        -webkit-justify-content: space-between;
+        -moz-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+    }
+</style>
+<div class="breadcrumb">
+    <div class="container">
+        <div class="row">
+            <ul>
+                <li><a href="/Home/HomePage">Home</a></li>
+                <li>Services</li>
+                <li>Add Request</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="page-content">
+    <div class="container">
+        <h1 class="title-underline">Contact Us</h1>
+        <div class="row">
+            <div class="col-sm-5 col-md-4 col-lg-4">
+                <div class="contact-box-01">
+                    <h6 class="title">Our address:</h6>
+                    5604 Willow Crossing Ct,
+                    <br>
+                    Clifton, VA, 20124
+                </div>
+                <div class="contact-box-02">
+                    <h6 class="title">Call us:</h6>
+                    +1-800-123-45-67
+                </div>
+                <div class="contact-box-03">
+                    <h6 class="title">Have any questions?</h6>
+                    <a href="mailto:noreply@envato.com">noreply@envato.com</a>
+                    <br>
+                    <a href="www.envato.com">www.envato.com</a>
+                </div>
+                <ul class="social-icon-content">
+                    <li>
+                        <a href="#" class="icon-facebook-logo"></a>
+                    </li>
+                    <li>
+                        <a href="#" class="icon-twitter-logo-silhouette"></a>
+                    </li>
+                    <li>
+                        <a href="#" class="icon-instagram-social-network-logo-of-photo-camera"></a>
+                    </li>
+                    <li>
+                        <a href="#" class="icon-linkedin-logo"></a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-sm-7 col-md-8 col-lg-7 col-lg-offset-1">
+                <div class="row row-space">
+
+                    <div class="rs-select2 js-select-simple select--no-search">
+                        <asp:DropDownList ID="DropDownList2" AppendDataBoundItems="true" runat="server" DataSourceID="SqlDataSource1" DataTextField="Name" DataValueField="Address_ID">
+                        </asp:DropDownList>
+                        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ahmedGubran %>" SelectCommand='SELECT * FROM [Address] WHERE ([Customer_ID] = '>
+                            <SelectParameters>
+                                <asp:SessionParameter DefaultValue="0" Name="Customer_ID" SessionField="UserID" Type="Int32" />
+                            </SelectParameters>
+                        </asp:SqlDataSource>
+                        <div class="select-dropdown" style="border-bottom: 2px solid #0098d6;"></div>
+                        <div id="basicExample12">
+                            <input type="text" onfocus="(this.type='date')" id="DateP" placeholder="Pickup Date" runat="server" style=" padding: 0; color: #0098d6; font-size: 16px;font-family: inherit;font-weight: 500; border-bottom: 2px solid; margin-top: 26px;" class="date start" />
+
+                        </div>
+                    </div>
+
+                    <div class="rs-select2 js-select-simple select--no-search">
+                        <select id="Select1" runat="server">
+                            <option disabled="disabled" selected="selected">Type Of Service</option>
+                            <option>Laundry Service</option>
+                            <option>Dry Cleaning</option>
+                            <option>Leather & Suede Cleaning</option>
+                            <option>Wedding Gown Cleaning & Preservation</option>
+                            <option>Tailoring & Alterations</option>
+                            <option>Pillow Refurbishing</option>
+                            <option>Linen, Upholstery, & Area Rug Cleaning</option>
+
+                        </select>
+                        <div class="select-dropdown" style="border-bottom: 2px solid #0098d6;"></div>
+                        <div id="basicExample1">
+                            <input type="text" id="TimeP" placeholder="Pickup Time" runat="server" style="color: #0098d6;font-size: 16px;font-family: inherit;font-weight: 500;border-bottom: 2px solid; margin-top: 26px;" class="time start" />
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Description</label>
+                    <textarea class="form-control" id="Desc" runat="server" rows="10" name="message"></textarea>
+                </div>
+                <asp:Button class="btn btn-default btn-top" runat="server" ID="AddR" Text="SEND REQUEST" OnClick="AddR_Click" />
+            </div>
+        </div>
+    </div>
+
+    <!-- Jquery JS-->
+    <!-- <script src="vendor/jquery/jquery.min.js"></script>-->
+    <!-- Vendor JS-->
+    <script src="~/vendor/select2/select2.min.js"></script>
+    <script src="~/vendor/datepicker/moment.min.js"></script>
+    <script src="~/vendor/datepicker/daterangepicker.js"></script>
+
+    <!-- Main JS-->
+    <script src="~/js/global.js"></script>
+    <script>
+            // initialize input widgets first
+            $('#basicExample1 .time').timepicker({
+                'showDuration': true,
+                'timeFormat': 'g:i a'
+            });
+
+            $('#basicExample .date').datepicker({
+                'format': 'm/d/yyyy',
+                'autoclose': true
+            });
+
+            // initialize datepair
+            var basicExampleEl = document.getElementById('basicExample');
+            var datepair = new Datepair(basicExampleEl);
+    </script>
+</div>

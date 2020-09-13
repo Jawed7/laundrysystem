@@ -1,0 +1,27 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "type": "mssql.local",
+      "connectionId": "laundryDbContextConnection"
+    },
+    "secrets1": {
+      "type": "secrets.user"
+    },
+    "storage1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Storage/storageAccounts/tablestoragetp040643",
+      "type": "storage.azure",
+      "connectionId": "teststring",
+      "secretStore": "LocalSecretsFile"
+    },
+    "mssql2": {
+      "type": "mssql.local",
+      "connectionId": "laundryNewDbContext"
+    },
+    "storage2": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Storage/storageAccounts/blobstoragelaundry",
+      "type": "storage.azure",
+      "connectionId": "blobString",
+      "secretStore": "LocalSecretsFile"
+    }
+  }
+}

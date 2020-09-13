@@ -1,0 +1,42 @@
+﻿@model IEnumerable<laundry.Models.User>
+@{
+    ViewData["Title"] = "Get";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<h3>User Testinomials</h3>
+<br/>
+
+<table border ="1">
+    <tr>
+        <th>Partition Key</th>
+        <th>Row Key</th>
+        <th>Testinomials</th>
+        <th>Delete</th>
+    </tr>
+
+    @foreach(var users in Model)
+    {
+     <tr>
+         <td>
+         @users.PartitionKey
+         </td>
+         <td>
+         @users.RowKey
+         </td>
+         <td>
+         @users.Testimonial
+         </td>
+         <td>
+             @{ 
+                 var prm = new Dictionary<string, string>
+                 {
+                     {"partitionkey", users.PartitionKey },
+                     {"rowkey", users.RowKey }
+                 };
+             }
+             <button asp-controller= "ManageTestimonial" asp-area="deleteTableData" asp-all-route-data="prm" type="submit" class="btn btn-primary">Save</button>
+         </td>
+     </tr>
+    }
+</table>

@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "secrets1": {
+      "type": "secrets"
+    },
+    "storage1": {
+      "type": "storage",
+      "connectionId": "teststring"
+    },
+    "storage2": {
+      "type": "storage",
+      "connectionId": "blobString"
+    },
+    "mssql1": {
+      "type": "mssql",
+      "connectionId": "laundryDbContextConnection"
+    },
+    "mssql2": {
+      "type": "mssql",
+      "connectionId": "laundryNewDbContext"
+    }
+  }
+}

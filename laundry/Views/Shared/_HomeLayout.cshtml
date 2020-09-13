@@ -1,0 +1,282 @@
+﻿<!DOCTYPE html>
+<html>
+<head runat="server">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8">
+    <!--[if IE]>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="~/external/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="~/fav.ico">
+    <title>Laundry & Dry Cleaning</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link href="~/fonts/style.css" rel="stylesheet">
+    <link href="~/external/animate/animate.min.css" rel="stylesheet">
+    <link href="~/external/slick/slick.css" rel="stylesheet">
+    <link href="~/external/slick/slick-theme.css" rel="stylesheet">
+    <link href="~/css/styleMe.css" rel="stylesheet">
+    <link href="~/css/style.css" rel="stylesheet">
+    <!-- REVOLUTION STYLE SHEETS -->
+    <link rel="stylesheet" type="text/css" href="~/external/revolution/css/settings.css">
+    <!-- REVOLUTION LAYERS STYLES -->
+    <link rel="stylesheet" type="text/css" href="~/external/revolution/css/layers.css">
+    <!-- REVOLUTION NAVIGATION STYLES -->
+    <link rel="stylesheet" type="text/css" href="~/external/revolution/css/navigation.css">
+    <style>
+        .login {
+            width: 40%;
+            padding: 12px 20px;
+            margin: 8px 26px;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <form runat="server" id="form1" novalidate>
+        <header>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-5 col-lg-6">
+                        <!-- logo -->
+                        <a class="logo" title="Laundry & Dry Cleaning" href="/Home/HomePage">
+                            <img class="img-responsive" src="~/images/logo.png" alt="Laundry & Dry Cleaning">
+                        </a>
+                        <!-- /logo -->
+                    </div>
+                    <div class="col-sm-12 col-md-3 col-lg-3 hidden-sm hidden-xs">
+                        <!-- box-location -->
+                        <address class="box-location">
+                            East Lake Residence,
+                            <br>
+                            Serdang, Selangor, Malaysia
+                        </address>
+                        <!-- /box-location -->
+                    </div>
+                    <div class="col-sm-12 col-md-4 col-lg-3 hidden-sm hidden-xs">
+                        <!-- box-telephone -->
+                        <div id="Log" class="box-logIn " runat="server">
+                            <partial name="_LoginPartial" />
+                        </div>
+                    </div>
+                    <!-- /box-telephone -->
+                </div>
+            </div>
+            <div id="customer" runat="server" class="box-nav">
+                <div class="container">
+                    <div class="row">
+                        <div class="center">
+                            <a id="touch-menu" class="mobile-menu" href="#">
+                                <span class="icon-menu-button-of-three-horizontal-lines"></span>
+                            </a>
+                            <nav class="top-menu">
+                                <ul id="mennu" class="menu">
+                                    <li id="homee" runat="server"><a href="/Home/HomePage">Home</a></li>
+                                    <li><a href="/Home/About">About</a></li>
+                                    <li><a href="/Customers/Index">Add Request</a></li>
+                                    <li>
+                                        <a href="/Home/Services">Services</a>
+                                        <ul ID="server" runat="server">
+                                            <li>
+                                                @if (User.Identity.IsAuthenticated)
+                                                {
+                                                    if (User.IsInRole("Admin"))
+                                                    {
+                                                        <a href"" asp-controller="AdminRequest" asp-action="Index">Manage Request</a>
+                                                        <a href"" asp-controller="ManageUsers" asp-action="Index">View Users</a>
+                                                        <a href"" asp-controller="FileUpload" asp-action="Index">File Upload</a>
+                                                        <a href"" asp-controller="FileUpload" asp-action="ManageUpload">Manage Upload</a>
+                                                    }
+                                                    <a href"" asp-controller="ManageTestimonial" asp-action="Get">Manage Testimonial</a>
+                                                }
+
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="/Home/Prices">Prices</a></li>
+                                    <li><a href="/Home/FAQ">FAQ</a></li>
+                                    <li><a href="/Home/ContactPage">Contacts</a></li>
+                                    <li><a href="/TableStorage/addTestimonials">Add Testimonials</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        @RenderBody()
+    </form>
+    <footer class="offset-top0">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <a class="logo-footer" href="/Home/HomePage"><img src="~/images/logo_footer.png" alt=""></a>
+                </div>
+                <div class="col-md-9">
+                    <div class="row footer-separator">
+                        <div class="col-md-8 col-lg-9">
+                            <!-- promo  -->
+                            <div class="promo-footer">
+                                <span class="text-1">Get Started Today!</span>
+                                <span class="text-2">+60 17 674 0133</span>
+                            </div>
+                            <!-- /promo -->
+                        </div>
+                        <div class="col-md-4 col-lg-3">
+                            <!-- social-icon -->
+                            <ul class="social-icon-footer">
+                                <li>
+                                    <a href="#" class="icon-facebook-logo"></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="icon-twitter-logo-silhouette"></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="icon-instagram-social-network-logo-of-photo-camera"></a>
+                                </li>
+                            </ul>
+                            <!-- /social-icon -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2 hidden-sm hidden-xs  pull-right">
+                    <!-- footer-link -->
+                    <ul class="footer-link">
+                        <li><a href="#">Terms and Conditions</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                    <!-- /footer-link -->
+                </div>
+                <div class="col-xs-12 col-md-4 col-lg-4 pull-right">
+                    <!-- time-table -->
+                    <div class="time-table">
+                        Mon-Fri: 7:00am-7:00pm
+                        <br> Sat-Sun: 10:00am-5:00pm
+                    </div>
+                    <!-- /time-table -->
+                </div>
+                <div class="col-xs-12 col-md-3 col-lg-3 pull-right">
+                    <!-- box-location -->
+                    <div class="box-location">
+                        East Lake Residence,Serdang, Selangor, Malaysia
+                    </div>
+                    <!-- /box-location -->
+                </div>
+                <div class="col-xs-12 col-md-3 col-lg-3">
+                    <!-- copyright-box -->
+                    <div class="copyright-box">
+                        &copy; 2017 Laundry & Dry Cleaning. All Rights Reserved.
+                    </div>
+                    <!-- /copyright-box -->
+                </div>
+                <div class="col-xs-12 col-md-3 col-lg-2 visible-sm visible-xs pull-right">
+                    <!-- footer-link -->
+                    <ul class="footer-link">
+                        <li><a href="#">Terms and Conditions</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                    <!-- /footer-link -->
+                </div>
+            </div>
+        </div>
+        <div class="bubbleContainer"></div>
+    </footer>
+
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <script src="~/external/jquery/jquery.min.js"></script>
+    <script src="~/external/bootstrap/bootstrap.min.js"></script>
+    <script src="~/external/slick/slick.min.js"></script>
+    <script src="~/external/waypoints/jquery.waypoints.min.js"></script>
+    <script src="~/external/countto/jquery.countTo.js"></script>
+    <script src="~/js/main.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBesw263ius7OmFcr2A9w4FO7uK5xhQbgY"></script>
+
+    <!-- REVOLUTION JS FILES -->
+    <script type="text/javascript" src="~/external/revolution/js/jquery.themepunch.tools.min.js"></script>
+    <script type="text/javascript" src="~/external/revolution/js/jquery.themepunch.revolution.min.js"></script>
+    <!-- SLIDER REVOLUTION 5.0 EXTENSIONS -->
+    <script type="text/javascript" src="~/external/revolution/js/extensions/revolution.extension.actions.min.js"></script>
+    <script type="text/javascript" src="~/external/revolution/js/extensions/revolution.extension.carousel.min.js"></script>
+    <script type="text/javascript" src="~/external/revolution/js/extensions/revolution.extension.kenburn.min.js"></script>
+    <script type="text/javascript" src="~/external/revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
+    <script type="text/javascript" src="~/external/revolution/js/extensions/revolution.extension.migration.min.js"></script>
+    <script type="text/javascript" src="~/external/revolution/js/extensions/revolution.extension.navigation.min.js"></script>
+    <script type="text/javascript" src="~/external/revolution/js/extensions/revolution.extension.parallax.min.js"></script>
+    <script type="text/javascript" src="~/external/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
+    <script type="text/javascript" src="~/external/revolution/js/extensions/revolution.extension.video.min.js"></script>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+
+            // Revolution Slider
+            jQuery('.tp-banner').show().revolution({
+                sliderType: "standard",
+                sliderLayout: "fullwidth",
+                dottedOverlay: "none",
+                delay: 6000,
+                navigation: {
+                    keyboardNavigation: "off",
+                    keyboard_direction: "horizontal",
+                    mouseScrollNavigation: "off",
+                    mouseScrollReverse: "default",
+                    onHoverStop: "off",
+                    touch: {
+                        touchenabled: "on",
+                        swipe_threshold: 75,
+                        swipe_min_touches: 1,
+                        swipe_direction: "horizontal",
+                        drag_block_vertical: false
+                    },
+                    arrows: {
+                        style: "uranus",
+                        enable: true,
+                        hide_onleave: true
+                    }
+                },
+                responsiveLevels: [1920, 1200, 992, 768],
+                visibilityLevels: [1920, 1200, 992, 768],
+                gridwidth: [1920, 1200, 992, 768],
+                gridheight: [778, 486, 402, 300],
+                lazyType: "single",
+                shadow: 0,
+                spinner: "off",
+                stopLoop: "on",
+                stopAfterLoops: 0,
+                shuffle: "off",
+                autoHeight: "off",
+                fullScreenAutoWidth: "off",
+                fullScreenAlignForce: "off",
+                disableProgressBar: "on",
+                hideThumbsOnMobile: "off",
+                hideSliderAtLimit: 0,
+                hideCaptionAtLimit: 0,
+                hideAllCaptionAtLilmit: 0,
+                debugMode: false
+            });
+        }); //ready
+    </script>
+    <script>
+        // If user clicks anywhere outside of the modal, Modal will close
+
+        var modal = document.getElementById('modal-wrapper');
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

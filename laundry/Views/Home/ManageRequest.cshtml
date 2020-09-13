@@ -1,0 +1,216 @@
+﻿@{
+    ViewData["Title"] = "ManageRequest";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<div class="breadcrumb">
+    <div class="container">
+        <div class="row">
+            <ul>
+                <li><a href="/Home/HomePage">Home</a></li>
+                <li>Request</li>
+                <li>Manage Request</li>
+            </ul>
+        </div>
+    </div>
+</div>
+ <% if (Session["uType"].Equals("Admin")) {%>
+
+<DeleteParameters>
+    <asp:Parameter Name="Order" />
+</DeleteParameters>
+<InsertParameters>
+    <asp:Parameter Name="Stuff_ID" />
+    <asp:Parameter Name="type_Of_Ser" />
+    <asp:Parameter Name="Price" />
+    <asp:Parameter Name="Description" />
+    <asp:Parameter Name="Pick_Up_Date" />
+    <asp:Parameter Name="Status" />
+</InsertParameters>
+<UpdateParameters>
+    <asp:Parameter Name="Stuff_ID" />
+    <asp:Parameter Name="Price" />
+    <asp:Parameter Name="Status" />
+    <asp:Parameter Name="Order" />
+</UpdateParameters>
+
+<div class="search-box" style="position: absolute;top: 198px;left: 1073px;">
+    <input ID="searchBox" class="search-text" type="text" placeholder="Type to search" onkeyup="myFunction1()" /> <a class="search-btn">
+        <i class="fas fa-search" style="position:relative; bottom:4px; font-size:30px; color:white"></i>
+    </a>
+</div>
+<br />
+<br />
+<br />
+<br />
+<br />
+<asp:GridView class="table" ID="GridView1" runat="server" AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="Order" DataSourceID="SqlDataSource12">
+    <Columns>
+        <asp:BoundField DataField="Order" HeaderText="Order" InsertVisible="False" ReadOnly="True" SortExpression="Order" />
+        <asp:BoundField DataField="Customer" HeaderText="Customer" SortExpression="Customer" ReadOnly="True" />
+        <asp:BoundField DataField="AddressName" HeaderText="AddressName" SortExpression="AddressName" ReadOnly="True" />
+        <asp:TemplateField HeaderText="Stuff_ID" SortExpression="Stuff_ID">
+            <EditItemTemplate>
+                <asp:DropDownList ID="DropDownList1" runat="server" AppendDataBoundItems="True" DataSourceID="SqlDataSource11" DataTextField="Name" DataValueField="Id" SelectedValue='<%# Bind("Stuff_ID") %>'>
+                    <asp:ListItem></asp:ListItem>
+
+                </asp:DropDownList>
+                <asp:SqlDataSource ID="SqlDataSource11" runat="server" ConnectionString="<%$ ConnectionStrings:ahmedGubran %>" SelectCommand="SELECT * FROM [User] WHERE ([TypeOfUser]!=)">
+                    <SelectParameters>
+                        <asp:Parameter DefaultValue="customer" Name="TypefUser" Type="String" />
+                    </SelectParameters>
+                </asp:SqlDataSource>
+
+
+            </EditItemTemplate>
+            <ItemTemplate>
+                <asp:Label ID="Label1" runat="server" Text='<%# Bind("Stuff_ID")%>'></asp:Label>
+            </ItemTemplate>
+        </asp:TemplateField>
+        <asp:BoundField DataField="type_Of_Ser" HeaderText="type_Of_Ser" SortExpression="type_Of_Ser" ReadOnly="True" />
+        <asp:BoundField DataField="Price" HeaderText="Price" SortExpression="Price" />
+        <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" ReadOnly="True" />
+        <asp:BoundField DataField="Pick_Up_Date" HeaderText="Pick_Up_Date" SortExpression="Pick_Up_Date" ReadOnly="True" />
+        <asp:TemplateField HeaderText="Status" SortExpression="Status">
+            <EditItemTemplate>
+                <asp:DropDownList ID="DropDownList2" runat="server" AppendDataBoundItems="true" SelectedValue='<%# Bind("Status") %>'>
+                    <asp:ListItem></asp:ListItem>
+                    <asp:ListItem>Pending</asp:ListItem>
+                    <asp:ListItem>In Progress</asp:ListItem>
+                    <asp:ListItem>Shipping</asp:ListItem>
+                    <asp:ListItem>Completed</asp:ListItem>
+                </asp:DropDownList>
+            </EditItemTemplate>
+            <ItemTemplate>
+                <asp:Label ID="Label2" runat="server" Text='<%# Bind("Status") %>'></asp:Label>
+            </ItemTemplate>
+        </asp:TemplateField>
+        <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" />
+    </Columns>
+
+</asp:GridView>
+                          <%} else{ %>
+
+<SelectParameters>
+
+    <asp:SessionParameter Name="staffID" SessionField="UserID" Type="Int32" />
+</SelectParameters>
+<DeleteParameters>
+    <asp:Parameter Name="Order" />
+</DeleteParameters>
+<InsertParameters>
+    <asp:Parameter Name="Stuff_ID" />
+    <asp:Parameter Name="type_Of_Ser" />
+    <asp:Parameter Name="Price" />
+    <asp:Parameter Name="Description" />
+    <asp:Parameter Name="Pick_Up_Date" />
+    <asp:Parameter Name="Status" />
+</InsertParameters>
+<UpdateParameters>
+    <asp:Parameter Name="Stuff_ID" />
+    <asp:Parameter Name="Price" />
+    <asp:Parameter Name="Status" />
+    <asp:Parameter Name="Order" />
+</UpdateParameters>
+
+
+<div class="search-box" style="position: absolute;top: 198px;left: 1073px;">
+    <input ID="searchBox" class="search-text" type="text" placeholder="Type to search" onkeyup="myFunction()" /> <a class="search-btn">
+        <i class="fas fa-search" style="position:relative; bottom:4px; font-size:30px; color:white"></i>
+    </a>
+</div>
+<br />
+<br />
+<br />
+<br />
+<br />
+<asp:GridView class="table" ID="GridView2" runat="server" AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="Order" DataSourceID="SqlDataSource1">
+    <Columns>
+        <asp:BoundField DataField="Order" HeaderText="Order" InsertVisible="False" ReadOnly="True" SortExpression="Order" />
+        <asp:BoundField DataField="Customer" HeaderText="Customer" SortExpression="Customer" ReadOnly="True" />
+        <asp:BoundField DataField="AddressName" HeaderText="AddressName" SortExpression="AddressName" ReadOnly="True" />
+        <asp:TemplateField HeaderText="Stuff_ID" SortExpression="Stuff_ID">
+            <EditItemTemplate>
+                <asp:DropDownList ID="DropDownList3" runat="server" AppendDataBoundItems="True" DataSourceID="SqlDataSource2" DataTextField="Name" DataValueField="Id" SelectedValue='<%# Bind("Stuff_ID") %>'>
+                    <asp:ListItem></asp:ListItem>
+
+                </asp:DropDownList>
+                <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:ahmedGubran %>" SelectCommand="SELECT * FROM [User] WHERE ([Id] = )">
+                    <SelectParameters>
+                        <asp:SessionParameter Name="Id" SessionField="UserID" Type="Int32" />
+                    </SelectParameters>
+                </asp:SqlDataSource>
+
+            </EditItemTemplate>
+            <ItemTemplate>
+                <asp:Label ID="Label1" runat="server" Text='<%# Bind("Stuff_ID")%>'></asp:Label>
+            </ItemTemplate>
+        </asp:TemplateField>
+        <asp:BoundField DataField="type_Of_Ser" HeaderText="type_Of_Ser" SortExpression="type_Of_Ser" ReadOnly="True" />
+        <asp:BoundField DataField="Price" HeaderText="Price" SortExpression="Price" />
+        <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" ReadOnly="True" />
+        <asp:BoundField DataField="Pick_Up_Date" HeaderText="Pick_Up_Date" SortExpression="Pick_Up_Date" ReadOnly="True" />
+        <asp:TemplateField HeaderText="Status" SortExpression="Status">
+            <EditItemTemplate>
+                <asp:DropDownList ID="DropDownList2" runat="server" AppendDataBoundItems="true" SelectedValue='<%# Bind("Status") %>'>
+                    <asp:ListItem></asp:ListItem>
+                    <asp:ListItem>Pending</asp:ListItem>
+                    <asp:ListItem>In Progress</asp:ListItem>
+                    <asp:ListItem>Shipping</asp:ListItem>
+                    <asp:ListItem>Completed</asp:ListItem>
+                </asp:DropDownList>
+            </EditItemTemplate>
+            <ItemTemplate>
+                <asp:Label ID="Label2" runat="server" Text='<%# Bind("Status") %>'></asp:Label>
+            </ItemTemplate>
+        </asp:TemplateField>
+        <asp:CommandField ShowEditButton="True" />
+    </Columns>
+
+</asp:GridView>
+
+                    <% }%>
+<script>
+function myFunction1() {
+  var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchBox");
+  filter = input.value.toUpperCase();
+            table = document.getElementById("ContentPlaceHolder1_GridView1");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+
+}
+</script>
+<script>
+                function myFunction() {
+                    var input, filter, table, tr, td, i, txtValue;
+                    input = document.getElementById("searchBox");
+                    filter = input.value.toUpperCase();
+                    table = document.getElementById("ContentPlaceHolder1_GridView2");
+                    tr = table.getElementsByTagName("tr");
+                    for (i = 0; i < tr.length; i++) {
+                        td = tr[i].getElementsByTagName("td")[1];
+                        if (td) {
+                            txtValue = td.textContent || td.innerText;
+                            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                tr[i].style.display = "";
+                            } else {
+                                tr[i].style.display = "none";
+                            }
+                        }
+                    }
+
+                }
+</script>
+
+
+

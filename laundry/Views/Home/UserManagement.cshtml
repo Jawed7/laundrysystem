@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewData["Title"] = "UserManagement";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<div class="breadcrumb">
+    <div class="container">
+        <div class="row">
+            <ul>
+                <li><a href="HomePage.html">Home</a></li>
+                <li>User</li>
+                <li>User Management</li>
+            </ul>
+        </div>
+    </div>
+</div>
+    <DeleteParameters>
+        <asp:Parameter Name="Id" Type="Int32" />
+    </DeleteParameters>
+    <InsertParameters>
+        <asp:Parameter Name="Username" Type="String" />
+        <asp:Parameter Name="Name" Type="String" />
+        <asp:Parameter Name="Email" Type="String" />
+        <asp:Parameter Name="Gender" Type="String" />
+        <asp:Parameter Name="TypeOfUser" Type="String" />
+        <asp:Parameter Name="PhoneNum" Type="String" />
+    </InsertParameters>
+    <UpdateParameters>
+        <asp:Parameter Name="Username" Type="String" />
+        <asp:Parameter Name="Name" Type="String" />
+        <asp:Parameter Name="Email" Type="String" />
+        <asp:Parameter Name="Gender" Type="String" />
+        <asp:Parameter Name="TypeOfUser" Type="String" />
+        <asp:Parameter Name="PhoneNum" Type="String" />
+        <asp:Parameter Name="Id" Type="Int32" />
+    </UpdateParameters>
+
+<div class="search-box" style="position: absolute;top: 198px;left: 1073px;">
+    <input ID="searchBox" class="search-text" type="text" placeholder="Type to search" onkeyup="myFunction()" /> <a class="search-btn">
+        <i class="fas fa-search" style="position:relative; bottom:4px; font-size:30px; color:white"></i>
+    </a>
+</div>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<asp:GridView class="table" ID="GridView1" runat="server" AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="Id" DataSourceID="ahmedGubran" AllowPaging="True">
+    <Columns>
+        <asp:BoundField DataField="Id" HeaderText="Id" InsertVisible="False" ReadOnly="True" SortExpression="Id" />
+        <asp:BoundField DataField="Username" HeaderText="Username" SortExpression="Username" ReadOnly="True" />
+        <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" ReadOnly="True" />
+        <asp:BoundField DataField="Email" HeaderText="Email" SortExpression="Email" ReadOnly="True" />
+        <asp:BoundField DataField="Gender" HeaderText="Gender" SortExpression="Gender" ReadOnly="True" />
+        <asp:BoundField DataField="BirthDate" HeaderText="BirthDate" SortExpression="BirthDate" ReadOnly="True" />
+        <asp:TemplateField HeaderText="TypeOfUser" SortExpression="TypeOfUser">
+            <EditItemTemplate>
+                <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SqlDataSource1" DataTextField="TypeOfUser" DataValueField="TypeOfUser" SelectedValue='<%# Bind("TypeOfUser") %>'>
+                </asp:DropDownList>
+                <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ahmedGubran %>" SelectCommand="SELECT DISTINCT [TypeOfUser] FROM [User]"></asp:SqlDataSource>
+            </EditItemTemplate>
+            <ItemTemplate>
+                <asp:Label ID="Label1" runat="server" Text='<%# Bind("TypeOfUser") %>'></asp:Label>
+            </ItemTemplate>
+        </asp:TemplateField>
+        <asp:BoundField DataField="PhoneNum" HeaderText="PhoneNum" SortExpression="PhoneNum" ReadOnly="True" />
+        <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" />
+    </Columns>
+
+</asp:GridView>
+
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchBox");
+  filter = input.value.toUpperCase();
+            table = document.getElementById("ContentPlaceHolder1_GridView1");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
+

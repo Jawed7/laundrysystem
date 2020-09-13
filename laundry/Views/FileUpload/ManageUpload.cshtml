@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewData["Title"] = "ManageUpload";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<head>
+    <title>Google Icons</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<h2>ManageUpload</h2>
+
+@*<ul>
+        @foreach (var item in Model)
+        {
+            <li>@item</li>
+        }
+    </ul>
+
+    <br />
+    <br />
+
+    <ul>
+        @foreach (var item in Model)
+        {
+            string[] link = item.Split("#");
+            <li>
+                <img src="@link[1]" width="200px" height="200px" />
+                <span style="color:red">@link[0]</span>
+            </li>
+
+        }
+    </ul>*@
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                File Name
+            </th>
+            <th>
+                Azzure File Link
+            </th>
+            <th>
+                Download/Delete
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            string[] link = item.Split("#");
+            <tr>
+                <td>
+                    @link[0]
+                </td>
+                <td>
+                    @link[1]
+                </td>
+                <td>
+                    <a asp-area="@link[1]" asp-action="DownloadBlobs" onclick="return confirm('Downloaded Successfully!')"><i class="material-icons" >cloud_download</i></a>
+                    <a asp-area="@link[0]" asp-action="DeleteBlobs" class="text-danger ml-1" onclick="return confirm('Are you sure to delete this record?')"><i class="fa fa-trash-alt fa-lg"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+

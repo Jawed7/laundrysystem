@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewData["Title"] = "CreateTable";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<h1>Create Table Result</h1>
+<p>
+    The table of @ViewBag.tablename is created
+    @(ViewBag.result == true? "Successfully!": "failed because already existed!");
+</p>
+
