@@ -94,10 +94,10 @@ namespace laundry.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    var result_claim = await _userManager.AddClaimsAsync(user, new List<Claim>()
-                        { new Claim(ClaimTypes.Role, "Admin"),
+                    //var result_claim = await _userManager.AddClaimsAsync(user, new List<Claim>()
+                    //    { new Claim(ClaimTypes.Role, "Admin"),
 
-                    });
+                    //});
 
                     _logger.LogInformation("User created a new account with password.");
 
@@ -127,7 +127,7 @@ namespace laundry.Areas.Identity.Pages.Account
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
-
+         
             // If we got this far, something failed, redisplay form
             return Page();
         }
