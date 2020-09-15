@@ -16,7 +16,7 @@ namespace laundry.Controllers
     public class TableStorageController : Controller
     {
         private readonly UserManager<laundryUser> _userManager;
-        
+
         public TableStorageController(UserManager<laundryUser> userManager)
         {
             _userManager = userManager;
@@ -43,8 +43,7 @@ namespace laundry.Controllers
             CloudTableClient tableClient = storageaccount.CreateCloudTableClient();
 
             //refer to table that related to your app
-            CloudTable tables = tableClient.GetTableReference("TestTable");
-
+            CloudTable tables = tableClient.GetTableReference("tablestorage");
             return tables;
         }
 
@@ -58,21 +57,20 @@ namespace laundry.Controllers
             return View();
         }
 
-
-
-        
+        [HttpGet]
         public ActionResult addTestimonials(string msgInput)
         {
-      
-            var partKey = "UserTestinomials";
-            var userId = _userManager.GetUserAsync(User).Result.Id;
+            //var userId = _userManager.GetUserAsync(User).Result.Id;
+            var userId = "UserTestimonials";
+            var email = _userManager.GetUserAsync(User).Result.Email;
             CloudTable tableclient = getTableInformation();
-            User user = new User(partKey, userId);
-            user.Testimonial = msgInput;
+            User usertestim = new User(userId, email);
+            usertestim.Testimonial = msgInput;
+
 
             try
             {
-                TableOperation addTestomonial = TableOperation.Insert(user);
+                TableOperation addTestomonial = TableOperation.Insert(usertestim);
                 TableResult result = tableclient.ExecuteAsync(addTestomonial).Result;
                 if (result.HttpStatusCode == 204)
                 {
@@ -88,10 +86,5 @@ namespace laundry.Controllers
             return View();
         }
 
-        public ActionResult getDataTableStorage()
-        {
-            return View();
-        }
-        
     }
 }

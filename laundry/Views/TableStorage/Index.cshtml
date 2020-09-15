@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "addTestimonials";
+    ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
 
@@ -24,10 +24,8 @@
             </td>
             <td style="background-color: #FFFFFF; background-image: none;">
                 <br />
-                &nbsp;<input type="submit" value="Submit" />
-
+                &nbsp;<input type="submit" asp-controller="TableStorage" asp-action="addTestimonials" value="Submit" />
         </tr>
     </table>
     <br />
 }
-

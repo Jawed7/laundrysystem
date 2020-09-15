@@ -17,7 +17,7 @@ namespace laundry.Models
         [Required(ErrorMessage = "This field is required.")]
         [DisplayName("Email")]
         public string Email { get; set; }
-        [DisplayName("Email")]
+        [DisplayName("Pick-Up Date")]
         public DateTime FPick_Up_Date { get; set; }
         [DisplayName("Type Of Service")]
         public string Type_Of_Ser { get; set; }

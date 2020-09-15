@@ -78,7 +78,6 @@
                                 <ul id="mennu" class="menu">
                                     <li id="homee" runat="server"><a href="/Home/HomePage">Home</a></li>
                                     <li><a href="/Home/About">About</a></li>
-                                    <li><a href="/Customers/Index">Add Request</a></li>
                                     <li>
                                         <a href="/Home/Services">Services</a>
                                         <ul ID="server" runat="server">
@@ -91,17 +90,22 @@
                                                         <a href"" asp-controller="ManageUsers" asp-action="Index">View Users</a>
                                                         <a href"" asp-controller="FileUpload" asp-action="Index">File Upload</a>
                                                         <a href"" asp-controller="FileUpload" asp-action="ManageUpload">Manage Upload</a>
+                                                        <a href"" asp-controller="ServiceBusMessage" asp-action="ProcessMsg">Instant Feedback</a>
+                                                        <a href"" asp-controller="ManageTestimonial" asp-action="Get">Manage Testmonials</a>
                                                     }
-                                                    <a href"" asp-controller="ManageTestimonial" asp-action="Get">Manage Testimonial</a>
+                                                    else
+                                                    {
+                                                        <a href="/Customers/Index">Add Request</a>
+                                                        <a href="/ServiceBusMessage/Create">Send Instant Feedback</a>
+                                                        <a href="/TableStorage/Index">Add Testomonial</a>
+                                                    }
                                                 }
-
                                             </li>
                                         </ul>
                                     </li>
                                     <li><a href="/Home/Prices">Prices</a></li>
                                     <li><a href="/Home/FAQ">FAQ</a></li>
                                     <li><a href="/Home/ContactPage">Contacts</a></li>
-                                    <li><a href="/TableStorage/addTestimonials">Add Testimonials</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -123,7 +127,7 @@
                             <!-- promo  -->
                             <div class="promo-footer">
                                 <span class="text-1">Get Started Today!</span>
-                                <span class="text-2">+60 17 674 0133</span>
+                                <span class="text-2">+60 12 345 6789</span>
                             </div>
                             <!-- /promo -->
                         </div>

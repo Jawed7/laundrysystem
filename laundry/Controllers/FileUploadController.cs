@@ -25,20 +25,17 @@ namespace laundry.Controllers
 
         private CloudBlobContainer getContainerRef()
         {
-            //link to appsettings.json file and read the access key
+          
             var builder = new ConfigurationBuilder()
                            .SetBasePath(Directory.GetCurrentDirectory())
                            .AddJsonFile("appsettings.json");
             IConfigurationRoot configure = builder.Build();
 
-            //create link to connect to your storage account
             CloudStorageAccount storageaccount =
                 CloudStorageAccount.Parse(configure["ConnectionStrings:blobstorageconnection"]);
-
-            //create agent object client to communicate between ur app and ur storage account
+           
             CloudBlobClient tableClient = storageaccount.CreateCloudBlobClient();
 
-            //refer to table that related to your app
             CloudBlobContainer containerRef = tableClient.GetContainerReference("blobstorage");
 
             return containerRef;
@@ -50,10 +47,8 @@ namespace laundry.Controllers
         }
 
         [HttpPost("UploadFiles")]
-        //OPTION A: Disables Asp.Net Core's default upload size limit
         [DisableRequestSizeLimit]
-        //OPTION B: Uncomment to set a specified upload file limit
-        //[RequestSizeLimit(40000000)] 
+        
 
         public async Task<IActionResult> Post(List<IFormFile> files)
         {
@@ -66,19 +61,7 @@ namespace laundry.Controllers
                 {
                     continue;
                 }
-
-                // NOTE: uncomment either OPTION A or OPTION B to use one approach over another
-
-                // OPTION A: convert to byte array before upload
-                //using (var ms = new MemoryStream())
-                //{
-                //    formFile.CopyTo(ms);
-                //    var fileBytes = ms.ToArray();
-                //    uploadSuccess = await UploadToBlob(formFile.FileName, fileBytes, null);
-
-                //}
-
-                // OPTION B: read directly from stream for blob upload      
+     
                 using (var stream = formFile.OpenReadStream())
                 {
                     (uploadSuccess, uploadedUri) = await UploadToBlob(formFile.FileName, null, stream);
@@ -96,44 +79,31 @@ namespace laundry.Controllers
         private async Task<(bool, string)> UploadToBlob(string filename, byte[] imageBuffer = null, Stream stream = null)
         {
             CloudStorageAccount storageAccount = null;
-            CloudBlobContainer cloudBlobContainer = null;
+            CloudBlobContainer cloudBlobContainer = getContainerRef();
             string storageConnectionString = _configuration["storageconnectionstring"];
 
-            // Check whether the connection string can be parsed.
             if (CloudStorageAccount.TryParse(storageConnectionString, out storageAccount))
             {
                 try
                 {
-                    // Create the CloudBlobClient that represents the Blob storage endpoint for the storage account.
                     CloudBlobClient cloudBlobClient = storageAccount.CreateCloudBlobClient();
-
-                    // Create a container called 'uploadblob' and append a GUID value to it to make the name unique. 
-                    cloudBlobContainer = cloudBlobClient.GetContainerReference("blobstorage");
-
-
                     CloudBlobContainer tableObject = cloudBlobContainer;
                     bool var = tableObject.CreateIfNotExistsAsync().Result;
 
-                    //await  cloudBlobContainer.CreateAsync();
-
-                    // Set the permissions so the blobs are public. 
                     BlobContainerPermissions permissions = new BlobContainerPermissions
                     {
                         PublicAccess = BlobContainerPublicAccessType.Blob
                     };
                     await cloudBlobContainer.SetPermissionsAsync(permissions);
 
-                    // Get a reference to the blob address, then upload the file to the blob.
                     CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(filename);
 
                     if (imageBuffer != null)
                     {
-                        // OPTION A: use imageBuffer (converted from memory stream)
                         await cloudBlockBlob.UploadFromByteArrayAsync(imageBuffer, 0, imageBuffer.Length);
                     }
                     else if (stream != null)
                     {
-                        // OPTION B: pass in memory stream directly
                         await cloudBlockBlob.UploadFromStreamAsync(stream);
                     }
                     else
@@ -146,14 +116,6 @@ namespace laundry.Controllers
                 catch (StorageException ex)
                 {
                     return (false, null);
-                }
-                finally
-                {
-                    // OPTIONAL: Clean up resources, e.g. blob container
-                    //if (cloudBlobContainer != null)
-                    //{
-                    //    await cloudBlobContainer.DeleteIfExistsAsync();
-                    //}
                 }
             }
             else
@@ -207,7 +169,7 @@ namespace laundry.Controllers
             CloudBlobContainer container = getContainerRef();
             CloudBlockBlob blob = container.GetBlockBlobReference(area);
 
-            using (var output = System.IO.File.OpenWrite(@"D:\Folder"))
+            using (var output = System.IO.File.OpenWrite(@"E:\\download images"))
             {
                 blob.DownloadToStreamAsync(output).Wait();
             }

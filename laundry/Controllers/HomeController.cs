@@ -78,8 +78,8 @@ namespace laundry.Controllers
             CloudTableClient tableClient = storageaccount.CreateCloudTableClient();
 
             //refer to table that related to your app
-            CloudTable tables = tableClient.GetTableReference("TestTable");
-
+            CloudTable tables = tableClient.GetTableReference("tablestorage");
+            tables.CreateIfNotExistsAsync();
 
             //TableOperation retrieveOperation = TableOperation.Retrieve<User>(_userId, eemail);
             //TableResult result = await tables.ExecuteAsync(retrieveOperation);
@@ -90,7 +90,7 @@ namespace laundry.Controllers
             TableQuery<User> query = new TableQuery<User>();
             foreach (User entity in tables.ExecuteQuerySegmentedAsync(query, null).Result)
             {
-                string hi = "lolzzzzz";
+                //string hi = "lolzzzzz";
                 htmlstr += "<div>" +
                         "<div class=\"container\">" +
                             "<div class=\"row\">" +
@@ -100,9 +100,9 @@ namespace laundry.Controllers
                                     "</div>" +
                                     "<div class=\"col-xs-9\">" +
                                         "<div class=\"center-y\">" +
-                                            "<h4 class=\"title\"><a href=\"#\">" + entity.PartitionKey + "</a></h4><br>" +
+                                            "<h4 class=\"title\"><a href=\"#\">" + entity.Testimonial + "</a></h4><br>" +
                                             "<div class=\"description\">" +
-                                                hi +
+                                                
                                             "</div>" +
                                         "</div>" +
                                     "</div>" +

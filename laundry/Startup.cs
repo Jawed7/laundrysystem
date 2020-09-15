@@ -14,6 +14,7 @@ using Azure.Storage.Blobs;
 using Azure.Core.Extensions;
 using Microsoft.EntityFrameworkCore;
 using laundry.Data;
+using laundry.Service;
 
 namespace laundry
 {
@@ -43,6 +44,8 @@ namespace laundry
 
             services.AddDbContext<laundryNewDbContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("tablestorageconnection")));
+
+            services.AddTransient<IServiceBusQueueService, ServiceBusQueueService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
